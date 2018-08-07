@@ -1,0 +1,1043 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>APAS</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script type="text/javascript" 
+        src="http://cdn.sencha.com/ext/gpl/4.2.0/ext-all.js"></script>
+
+        <link rel="stylesheet" type="text/css" 
+              href="http://cdn.sencha.com/ext/gpl/4.2.0/resources/css/ext-all.css"></link>
+
+
+
+    </head>
+    <body>
+        <div id="gridDiv"></div>
+        <input type="button" id="show-btn" value="Members Module" />
+
+        <script>
+            var membersGrid;
+            var gridStore;
+
+
+
+
+            Ext.onReady(function () {
+
+
+                Ext.define('StudentDataModel', {
+                    extend: 'Ext.data.Model',
+                    fields: [
+                        {name: 'id', type: 'int'},
+                        {name: 'MemberNo', type: 'string'},
+                        {name: 'MemberName', type: 'string'},
+                        {name: 'SchemeJoin', type: 'string'},
+                        {name: 'DateEmployed', type: 'String'},
+                        {name: 'BirthDate', type: 'String'},
+                        {name: 'PhoneNumber', type: 'string'},
+                        {name: 'Designation', type: 'string'},
+                        {name: 'Department', type: 'string'}
+                    ]
+                });
+
+                gridStore = Ext.create('Ext.data.Store', {
+                    model: 'StudentDataModel',
+                    proxy: {
+                        type: 'rest',
+                        actionMethods: {
+                            read: 'GET'
+                        },
+                        url: '/APAS/members',
+                        reader: {
+                            type: 'json',
+                            root: 'members'
+                        }
+                    },
+                    autoLoad: true
+                });
+                membersGrid = Ext.create('Ext.grid.Panel', {
+                    id: 'gridId',
+                    store: gridStore,
+                    stripeRows: true,
+                    title: 'Scheme Members', // Title for the grid
+                    //renderTo          :'gridDiv', // Div id where the grid has to be rendered
+                    width: 800,
+                    collapsible: true, // property to collapse grid
+                    enableColumnMove: true, // property which allows column to move to different position by dragging that column.
+                    enableColumnResize: true, // property which allows to resize column run time.
+
+                    columns:
+                            [
+                                {header: 'ID', dataIndex: 'id'},
+                                {header: 'Member No.', dataIndex: 'MemberNo'},
+                                {header: 'Member Name', dataIndex: 'MemberName'},
+                                {header: 'Date Joined Scheme', dataIndex: 'SchemeJoin'},
+                                {header: 'Date of Employment', dataIndex: 'DateEmployed'},
+                                {header: 'Date of Birth', dataIndex: 'BirthDate'},
+                                {header: 'Phone Number', dataIndex: 'PhoneNumber'},
+                                {header: 'Designation', dataIndex: 'Designation'},
+                                {header: 'Department', dataIndex: 'Department'}
+                            ],
+                    tbar: [
+
+                        {
+
+                            text: 'Add Member',
+                            tooltip: 'Add a new Member',
+                            cls: 'x-btn-text-icon',
+
+                            handler: function () {
+
+                                var form = new Ext.form.FormPanel({
+
+                                    baseCls: 'x-plain',
+
+                                    labelWidth: 75,
+
+                                    name: 'MyForm',
+
+                                    //url: '/tutorial/rest/issuer/addIssuer',
+
+                                    defaultType: 'textfield',
+
+                                    items: [
+                                         {
+                        xtype: 'fileuploadfield',
+                        fieldLabel: 'Path To Signature',
+                        allowBlank: false,
+                        name: 'signature',
+                        anchor: '100%'
+                    },
+                                        {
+
+                                            fieldLabel: 'Title:',
+
+                                            id: 'title',
+
+                                            name: 'title',
+
+                                            allowBlank: false,
+
+                                            anchor: '100%'  // anchor width by percentage
+
+                                        },
+                                        {
+
+                                            fieldLabel: 'Member No.:',
+
+                                            id: 'memberNo',
+
+                                            name: 'memberNo',
+
+                                            allowBlank: false,
+
+                                            anchor: '100%'  // anchor width by percentage
+
+                                        },
+                                        {
+
+                                            fieldLabel: 'Surname:',
+
+                                            id: 'surname',
+
+                                            name: 'surname',
+
+                                            allowBlank: false,
+
+                                            anchor: '100%'  // anchor width by percentage
+
+                                        }, {
+
+                                            fieldLabel: 'Other Names:',
+
+                                            id: 'otherNames',
+
+                                            name: 'otherNames',
+
+                                            allowBlank: false,
+
+                                            anchor: '100%'  // anchor width by percentage
+
+                                        },
+                                        {
+
+                                            fieldLabel: 'Email Address:',
+
+                                            id: 'emailAddress',
+
+                                            name: 'emailAddress',
+
+                                            allowBlank: false,
+
+                                            anchor: '100%'  // anchor width by percentage
+
+                                        },
+                                        {
+
+                                            fieldLabel: 'Designation:',
+
+                                            id: 'designation',
+
+                                            name: 'designation',
+
+                                            allowBlank: false,
+
+                                            anchor: '100%'  // anchor width by percentage
+
+                                        },
+                                        {
+
+                                            fieldLabel: 'Phone Number:',
+
+                                            id: 'phoneNumber',
+
+                                            name: 'phoneNumber',
+
+                                            allowBlank: false,
+
+                                            anchor: '100%'  // anchor width by percentage
+
+                                        },
+                                        {
+
+                                            fieldLabel: 'Department:',
+
+                                            id: 'department',
+
+                                            name: 'department',
+
+                                            allowBlank: false,
+
+                                            anchor: '100%'  // anchor width by percentage
+
+                                        },
+                                        {
+
+                                            fieldLabel: 'Date of Birth:',
+
+                                            id: 'dateOfBirth',
+
+                                            name: 'dateOfBirth',
+
+                                            allowBlank: false,
+
+                                            anchor: '100%',
+                                            xtype: 'datefield',
+                                            format: 'd-m-Y',
+                                            submitFormat: 'd-m-Y'
+
+                                        },
+                                        {
+
+                                            fieldLabel: 'Date of Employment:',
+
+                                            id: 'dateOfEmployment',
+
+                                            name: 'dateOfEmployment',
+
+                                            allowBlank: false,
+
+                                            anchor: '100%',
+                                            xtype: 'datefield',
+                                            format: 'd-m-Y',
+                                            submitFormat: 'd-m-Y'
+
+                                        },
+                                        {
+
+                                            fieldLabel: 'Date of Joining Scheme:',
+
+                                            id: 'dateJoinedScheme',
+
+                                            name: 'dateJoinedScheme',
+
+                                            allowBlank: false,
+
+                                            anchor: '100%',
+                                            xtype: 'datefield',
+                                            format: 'd-m-Y',
+                                            submitFormat: 'd-m-Y'
+
+                                        },
+                                        {
+
+                                            fieldLabel: 'Payroll Number:',
+
+                                            id: 'payroll',
+
+                                            name: 'payroll',
+
+                                            allowBlank: false,
+
+                                            anchor: '100%'  // anchor width by percentage
+
+                                        },
+                                        {
+
+                                            fieldLabel: 'PIN Number:',
+
+                                            id: 'pinNo',
+
+                                            name: 'pinNo',
+
+                                            allowBlank: false,
+
+                                            anchor: '100%'  // anchor width by percentage
+
+                                        }
+
+                                    ]
+
+                                });
+
+
+
+
+                                var window = new Ext.Window({
+
+                                    title: 'Add New Member',
+
+                                    width: 350,
+
+                                    height: 600,
+
+                                    minWidth: 350,
+
+                                    minHeight: 180,
+
+                                    layout: 'fit',
+
+                                    plain: true,
+
+                                    bodyStyle: 'padding:5px;',
+
+                                    buttonAlign: 'center',
+
+                                    resizable: true,
+                                    autoScroll: true,
+
+                                    items: form,
+
+                                    buttons: [{
+
+                                            text: 'Save Member',
+
+                                            handler: function () {
+//                                                var frm = this.up('MyForm').getForm();
+
+                                                Ext.Ajax.request({
+                                                    url: '/APAS/members',
+                                                    method: 'POST',
+                                                    headers: {'Content-Type': 'application/json'},
+                                                    jsonData: {
+                                                        "MemberNo": Ext.getCmp('memberNo').getValue(),
+                                                        "EmailAddress": Ext.getCmp('emailAddress').getValue(),
+                                                        "PhoneNumber": Ext.getCmp('phoneNumber').getValue(),
+                                                        "Designation": Ext.getCmp('designation').getValue(),
+                                                        "Department": Ext.getCmp('department').getValue(),
+                                                        "DateEmployed":formatDate( Ext.getCmp('dateOfEmployment').getValue()),
+                                                        "BirthDate":formatDate( Ext.getCmp('dateOfBirth').getValue()),
+                                                        "SchemeJoin": formatDate(Ext.getCmp('dateJoinedScheme').getValue()),
+                                                        "PIN": Ext.getCmp('pinNo').getValue(),
+                                                        "Payroll": Ext.getCmp('payroll').getValue(),
+                                                        "Title": Ext.getCmp('title').getValue(),
+                                                        "Surname": Ext.getCmp('surname').getValue(),
+                                                        "OtherNames": Ext.getCmp('otherNames').getValue()
+                                                    },
+                                                    success: function (response) {
+                                                        gridStore.reload();
+                                                        Ext.Msg.alert("Info", "Data saved successfully : ");
+                                                    },
+                                                    failure: function (response) {
+                                                        Ext.Msg.alert("Error", jsonResp.error);
+                                                    }
+                                                });
+
+//                                                var formTicker = Ext.get('ticker').getValue();
+//
+//                                                var formName = Ext.get('issuerName').getValue();
+//
+//                                                var formType = Ext.get('issuerType').getValue();
+//
+//                                                var formCountry = Ext.get('country').getValue();
+
+
+
+
+
+//                                                if (form.getForm().isValid()) {
+//
+//                                                    form.getForm().submit({
+//
+//                                                        method: 'POST',
+//
+//                                                        url: '/APAS/members',
+//
+//                                                        success: function (a, response) {
+//
+////                                                            grid.getStore().insert(
+////                                                                    0,
+////                                                                    new ds_model({
+////
+////                                                                        ticker: formTicker,
+////
+////                                                                        issuerName: formName,
+////
+////                                                                        issuerType: formType,
+////
+////                                                                        country: formCountry
+////
+////                                                                    })
+////
+////                                                                    );
+//
+//                                                            window.close();
+//
+//                                                        },
+//
+//                                                        failure: function (a, response) {
+//
+//                                                            Ext.Msg.alert("Failed", response.result.message);
+//
+//                                                        }
+//
+//                                                    });
+//
+//                                                }
+//
+                                            }
+
+                                        }, {
+
+                                            text: 'Cancel',
+
+                                            handler: function () {
+
+                                                if (window) {
+
+                                                    window.close();
+
+                                                }
+
+                                            }
+
+                                        }]
+
+                                });
+
+                                window.show();
+
+                            }
+
+                        }]
+                });
+
+            });
+
+            var win,
+                    button = Ext.get('show-btn');
+
+            button.on('click', function () {
+
+                if (!win) {
+                    win = Ext.create('widget.window', {
+                        title: 'Members Register',
+                        header: {
+                            titlePosition: 2,
+                            titleAlign: 'center'
+                        },
+                        closable: true,
+                        closeAction: 'hide',
+                        maximizable: true,
+                        animateTarget: button,
+                        width: 1000,
+                        minWidth: 350,
+                        height: 350,
+                        tools: [{type: 'pin'}],
+                        layout: {
+                            type: 'border',
+                            padding: 5
+                        },
+                        items: [{
+                                region: 'west',
+                                title: 'Navigation',
+                                width: 200,
+                                split: true,
+                                collapsible: true,
+                                floatable: false
+                            }, {
+                                regiokkkn: 'center',
+                                xtype: 'tabpanel',
+                                items: [
+                                    membersGrid,
+                                    {
+                                        title: 'Running of Balances',
+                                        html: 'Hello world 2',
+                                        closable: true
+                                    }, {
+                                        title: 'Interest Rates',
+                                        html: 'Hello world 3',
+                                        closable: true
+                                    }]
+                            }]
+                    });
+                }
+                button.dom.disabled = true;
+                if (win.isVisible()) {
+                    win.hide(this, function () {
+                        button.dom.disabled = false;
+                    });
+                } else {
+                    win.show(this, function () {
+                        button.dom.disabled = false;
+                    });
+                }
+            });
+
+//
+//            Ext.require([
+//                'Ext.tab.*',
+//                'Ext.window.*',
+//                'Ext.tip.*',
+//                'Ext.layout.container.Border'
+//            ]);
+//            Ext.onReady(function () {
+//
+//                Ext.define('TechZoo.model.Member', {
+//                    extend: 'Ext.data.Model',
+//                    fields: [
+//                        {name: 'id', type: 'int'},
+//                        {name: 'MemberNo', type: 'string'},
+//                        {name: 'MemberName', type: 'string'},
+//                        {name: 'DateJoinedScheme', type: 'date'},
+//                        {name: 'DateEmployed', type: 'date'},
+//                        {name: 'BirthDate', type: 'date'},
+//                        {name: 'PhoneNumber', type: 'string'},
+//                        {name: 'Designation', type: 'string'},
+//                        {name: 'Department', type: 'string'}
+//                    ]
+//                });
+//
+//                Ext.define('TechZoo.store.Books', {
+//                    extend: 'Ext.data.Store',
+//                    storeId: 'bookStore',
+//                    model: 'TechZoo.model.Member',
+//                    fields: ['id', 'MemberNo', 'DateJoinedScheme', 'DateEmployed', 'BirthDate', 'PhoneNumber', 'Designation', 'Department'],
+//                    proxy: {
+//                        type: 'ajax',
+//                        url: '/APAS/members',
+//                        reader: {
+//                            type: 'json',
+//                            root: 'members'
+//                        }
+//                    },
+//                    autoLoad: true
+//                });
+//
+//
+//               var membersGrid= Ext.define('TechZoo.view.BooksList', {
+//                    extend: 'Ext.grid.Panel',
+//                    alias: 'widget.bookslist',
+//                    title: 'Books List - (ExtJS SpringMVC example - @ Tousif Khan)',
+//                    store: 'Books',
+//                    initComponent: function () {
+////                                this.tbar = [{
+////                                        text: 'Add Book',
+////                                        action: 'add',
+////                                        iconCls: 'book-add'
+////                                    }];
+//                        this.columns = [
+//                            {header: 'ID', dataIndex: 'id', flex: 1},
+//                            {header: 'Member No.', dataIndex: 'MemberNo'},
+//                            {header: 'Member Name', dataIndex: 'MemberName'},
+//                            {header: 'Date Joined Scheme', dataIndex: 'DateJoinedScheme'},
+//                            {header: 'Date of Employment', dataIndex: 'DateEmployed'},
+//                            {header: 'Date of Birth', dataIndex: 'BirthDate'},
+//                            {header: 'Phone Number', dataIndex: 'PhoneNumber'},
+//                            {header: 'Designation', dataIndex: 'Designation'},
+//                            {header: 'Department', dataIndex: 'Department'}
+//                        ];
+//                        this.callParent(arguments);
+//                    }
+//                });
+//
+//
+//
+
+
+//
+//            var store= Ext.create('Ext.data.Store', {
+//                    storeId: 'sampleStore',
+//                    fields: [{
+//                            name: 'MemberNo',
+//                            type: 'string'
+//                        }, {
+//                            name: 'MemberName',
+//                            type: 'string'
+//                        }, {
+//                            name: 'DateJoinedScheme',
+//                            type: 'date'
+//                        }, {
+//                            name: 'DateEmployed',
+//                            type: 'date'
+//                        }, 
+//                        {
+//                            name: 'BirthDate',
+//                            type: 'date'
+//                        },
+//                         {
+//                            name: 'PhoneNumber',
+//                            type: 'string'
+//                        },
+//                         {
+//                            name: 'Designation',
+//                            type: 'string'
+//                        },
+//                         {
+//                            name: 'Department',
+//                            type: 'String'
+//                        }
+//                    ],
+//                    url:'/APAS/members',
+//                    root:'members',
+//                     idProperty: 'id'
+//                     
+////                    data: [
+////                        {
+////                            MemberNo: "1",
+////                            MemberName: 'Erick Karanja Muthike',
+////                            DateJoinedScheme: '01/01/2018',
+////                            DateEmployed: '01/01/2018',
+////                            BirthDate: '04/11/1994',
+////                            PhoneNumber:'0702332833',
+////                            Designation:'Sofware Engineer',
+////                            Department:'ICT'
+////                        }, 
+////                        {
+////                            MemberNo: "2",
+////                            MemberName: 'Erick Karanja Muthike',
+////                            DateJoinedScheme: '01/01/2018',
+////                            DateEmployed: '01/01/2018',
+////                            BirthDate: '04/11/1994',
+////                            PhoneNumber:'0702332833',
+////                            Designation:'Sofware Engineer',
+////                            Department:'ICT'
+////                        }, 
+////                        {
+////                            MemberNo: "1",
+////                            MemberName: 'Erick Karanja Muthike',
+////                            DateJoinedScheme: '01/01/2018',
+////                            DateEmployed: '01/01/2018',
+////                            BirthDate: '04/11/1994',
+////                            PhoneNumber:'0702332833',
+////                            Designation:'Sofware Engineer',
+////                            Department:'ICT'
+////                        }]
+//                });
+//                store.load();
+
+//                var membersGrid = Ext.create('Ext.grid.Panel', {
+//                    id: 'membersGrid',
+//                    title: 'Scheme Members',
+//                    store: Ext.data.StoreManager.lookup('sampleStore'),
+//                    columns: [{
+//                            text: 'Member Number',
+//                            dataIndex: 'MemberNo',
+//                            flex: 0
+//                        },
+//                        {
+//                            text: 'Name',
+//                            dataIndex: 'MemberName'
+//                        }, {
+//                            text: 'Date Joined Scheme',
+//                            dataIndex: 'DateJoinedScheme',
+//                            xtype: 'datecolumn'
+//                        }, {
+//                            text: 'Date Employed',
+//                            dataIndex: 'DateEmployed',
+//                            xtype: 'datecolumn'
+//                        }, {
+//                            text: 'Birth Date',
+//                            dataIndex: 'BirthDate',
+//                            xtype: 'datecolumn'
+//                        },
+//                        {
+//                            text: 'Phone Number',
+//                            dataIndex: 'PhoneNumber'
+//                        },
+//                        {
+//                            text: 'Designation',
+//                            dataIndex: 'Designation'
+//                        },
+//                        {
+//                            text: 'Department',
+//                            dataIndex: 'Department',
+//                            width: 10
+//                        }
+//                    ],
+//                    height: 200,
+//                    width: 1000
+//                            // renderTo: Ext.getBody()
+//                });
+
+
+
+
+
+
+//                var win,
+//                        button = Ext.get('show-btn');
+//
+//                button.on('click', function () {
+//
+//                    if (!win) {
+//                        win = Ext.create('widget.window', {
+//                            title: 'Members Register',
+//                            header: {
+//                                titlePosition: 2,
+//                                titleAlign: 'center'
+//                            },
+//                            closable: true,
+//                            closeAction: 'hide',
+//                            maximizable: true,
+//                            animateTarget: button,
+//                            width: 1000,
+//                            minWidth: 350,
+//                            height: 350,
+//                            tools: [{type: 'pin'}],
+//                            layout: {
+//                                type: 'border',
+//                                padding: 5
+//                            },
+//                            items: [{
+//                                    region: 'west',
+//                                    title: 'Navigation',
+//                                    width: 200,
+//                                    split: true,
+//                                    collapsible: true,
+//                                    floatable: false
+//                                }, {
+//                                    region: 'center',
+//                                    xtype: 'tabpanel',
+//                                    items: [
+//                                        membersGrid,
+//                                        {
+//                                            title: 'Running of Balances',
+//                                            html: 'Hello world 2',
+//                                            closable: true
+//                                        }, {
+//                                            title: 'Interest Rates',
+//                                            html: 'Hello world 3',
+//                                            closable: true
+//                                        }]
+//                                }]
+//                        });
+//                    }
+//                    button.dom.disabled = true;
+//                    if (win.isVisible()) {
+//                        win.hide(this, function () {
+//                            button.dom.disabled = false;
+//                        });
+//                    } else {
+//                        win.show(this, function () {
+//                            button.dom.disabled = false;
+//                        });
+//                    }
+//                });
+//            });
+//            Ext.application({
+//    name: 'Fiddle',
+//
+//    launch: function () {
+//        Ext.create('Ext.tab.Panel', {
+//            itemId: 'mypanel',
+//            renderTo: Ext.getBody(),
+//            width: 500,
+//            height: 500,
+//            buttons: [{
+//                text: 'add tab',
+//                handler: function () {
+//                    var ran = parseInt(Math.random() * 10),
+//                        panel = this.up('tabpanel'),
+//                        newPanel = Ext.create('Ext.Panel', {
+//                            title: 'tab ' + ran,
+//                            closable: true,
+//                            items: [{
+//                                xtype: 'button',
+//                                text: 'my button ' + ran
+//                            }]
+//                        })
+//                    tab = panel.add(newPanel);
+//                    panel.setActiveTab(tab);
+//                }
+//            }]
+//        });
+//    }
+//});
+
+//       Ext.define('TechZoo.store.Books', {
+//                            extend: 'Ext.data.Store',
+//                            storeId: 'bookStore',
+//                            model: 'TechZoo.model.Member',
+//                            fields: ['id', 'title', 'author', 'price', 'qty'],
+//                            proxy: {
+//                                type: 'ajax',
+//                                url: '/APAS/members',
+//                                reader: {
+//                                    type: 'json',
+//                                    root: 'members'
+//                                }
+//                            },
+//                            autoLoad: true
+//                        });
+//                        
+
+
+        </script>
+
+        <script>
+//                    Ext.onReady(function () {
+//                        Ext.define('TechZoo.model.Book', {
+//                            extend: 'Ext.data.Model',
+//                            fields: [
+//                                {name: 'id', type: 'int'},
+//                                {name: 'title', type: 'string'},
+//                                {name: 'author', type: 'string'},
+//                                {name: 'price', type: 'int'},
+//                                {name: 'qty', type: 'int'}
+//                            ]
+//                        });
+//        
+//                        Ext.define('TechZoo.store.Books', {
+//                            extend: 'Ext.data.Store',
+//                            storeId: 'bookStore',
+//                            model: 'TechZoo.model.Book',
+//                            fields: ['id', 'title', 'author', 'price', 'qty'],
+//                            proxy: {
+//                                type: 'ajax',
+//                                url: '/APAS/api/book/loadBooks',
+//                                reader: {
+//                                    type: 'json',
+//                                    root: 'books'
+//                                }
+//                            },
+//                            autoLoad: true
+//                        });
+//        
+//                        Ext.define('TechZoo.view.BooksList', {
+//                            extend: 'Ext.grid.Panel',
+//                            alias: 'widget.bookslist',
+//                            title: 'Books List - (ExtJS SpringMVC example - @ Tousif Khan)',
+//                            store: 'Books',
+//                            initComponent: function () {
+//                                this.tbar = [{
+//                                        text: 'Add Book',
+//                                        action: 'add',
+//                                        iconCls: 'book-add'
+//                                    }];
+//                                this.columns = [
+//                                    {header: 'Title', dataIndex: 'title', flex: 1},
+//                                    {header: 'Author', dataIndex: 'author'},
+//                                    {header: 'Price', dataIndex: 'price', width: 60},
+//                                    {header: 'Quantity', dataIndex: 'qty', width: 80},
+//                                    {header: 'Action', width: 50,
+//                                        renderer: function (v, m, r) {
+//                                            var id = Ext.id();
+//                                            Ext.defer(function () {
+//                                                Ext.widget('image', {
+//                                                    renderTo: id,
+//                                                    name: 'delete',
+//                                                    src: 'resources/images/delete.jpg',
+//                                                    listeners: {
+//                                                        afterrender: function (me) {
+//                                                            me.getEl().on('click', function () {
+//                                                                var grid = Ext.ComponentQuery.query('bookslist')[0];
+//                                                                if (grid) {
+//                                                                    var sm = grid.getSelectionModel();
+//                                                                    var rs = sm.getSelection();
+//                                                                    if (!rs.length) {
+//                                                                        Ext.Msg.alert('Info', 'No Book Selected');
+//                                                                        return;
+//                                                                    }
+//                                                                    Ext.Msg.confirm('Remove Book',
+//                                                                            'Are you sure you want to delete?',
+//                                                                            function (button) {
+//                                                                                if (button == 'yes') {
+//                                                                                    //grid.store.remove(rs[0]);
+//                                                                                    var book = rs[0].getData();
+//                                                                                    Ext.Ajax.request({
+//                                                                                        url: '/APAS/api/book/delete',
+//                                                                                        method: 'POST',
+//                                                                                        jsonData: book,
+//                                                                                        success: function (response) {
+//                                                                                            var grid = Ext.ComponentQuery.query('bookslist')[0];
+//                                                                                            grid.getStore().load();
+//                                                                                        }
+//                                                                                    });
+//                                                                                }
+//                                                                            });
+//                                                                }
+//                                                            });
+//                                                        }
+//                                                    }
+//                                                });
+//                                            }, 50);
+//                                            return Ext.String.format('<div id="{0}"></div>', id);
+//                                        }
+//                                    }
+//                                ];
+//                                this.callParent(arguments);
+//                            }
+//                        });
+//        
+//                        Ext.define('TechZoo.view.BooksForm', {
+//                            extend: 'Ext.window.Window',
+//                            alias: 'widget.booksform',
+//                            title: 'Add Book',
+//                            width: 350,
+//                            layout: 'fit',
+//                            resizable: false,
+//                            closeAction: 'hide',
+//                            modal: true,
+//                            config: {
+//                                recordIndex: 0,
+//                                action: ''
+//                            },
+//                            items: [{
+//                                    xtype: 'form',
+//                                    layout: 'anchor',
+//                                    bodyStyle: {
+//                                        background: 'none',
+//                                        padding: '10px',
+//                                        border: '0'
+//                                    },
+//                                    defaults: {
+//                                        xtype: 'textfield',
+//                                        anchor: '100%'
+//                                    },
+//                                    items: [{
+//                                            name: 'title',
+//                                            fieldLabel: 'Book Title'
+//                                        }, {
+//                                            name: 'author',
+//                                            fieldLabel: 'Author Name'
+//                                        }, {
+//                                            name: 'price',
+//                                            fieldLabel: 'Price'
+//                                        }, {
+//                                            name: 'qty',
+//                                            fieldLabel: 'Quantity'
+//                                        }]
+//                                }],
+//                            buttons: [{
+//                                    text: 'OK',
+//                                    action: 'add'
+//                                }, {
+//                                    text: 'Reset',
+//                                    handler: function () {
+//                                        this.up('window').down('form').getForm().reset();
+//                                    }
+//                                }, {
+//                                    text: 'Cancel',
+//                                    handler: function () {
+//                                        this.up('window').close();
+//                                    }
+//                                }]
+//                        });
+//        
+//                        Ext.define('TechZoo.controller.Books', {
+//                            extend: 'Ext.app.Controller',
+//                            stores: ['Books'],
+//                            views: ['BooksList', 'BooksForm'],
+//                            refs: [{
+//                                    ref: 'formWindow',
+//                                    xtype: 'booksform',
+//                                    selector: 'booksform',
+//                                    autoCreate: true
+//                                }],
+//                            init: function () {
+//                                this.control({
+//                                    'bookslist > toolbar > button[action=add]': {
+//                                        click: this.showAddForm
+//                                    },
+//                                    'bookslist': {
+//                                        itemdblclick: this.onRowdblclick
+//                                    },
+//                                    'booksform button[action=add]': {
+//                                        click: this.doAddBook
+//                                    }
+//                                });
+//                            },
+//                            onRowdblclick: function (me, record, item, index) {
+//                                var win = this.getFormWindow();
+//                                win.setTitle('Edit Book');
+//                                win.setAction('edit');
+//                                win.setRecordIndex(index);
+//                                win.down('form').getForm().setValues(record.getData());
+//                                win.show();
+//                            },
+//                            showAddForm: function () {
+//                                var win = this.getFormWindow();
+//                                win.setTitle('Add Book');
+//                                win.setAction('add');
+//                                win.down('form').getForm().reset();
+//                                win.show();
+//                            },
+//                            doAddBook: function () {
+//                                var win = this.getFormWindow();
+//                                var store = this.getBooksStore();
+//                                var values = win.down('form').getValues();
+//        
+//                                var action = win.getAction();
+//                                //   var book = Ext.create('TechZoo.model.Book', values);
+//                                var url = '';
+//                                if (action == 'edit') {
+//                                    url = '/APAS/api/book/updateBook';
+//                                } else {
+//                                    url = '/APAS/api/book/save';
+//                                }
+//                                Ext.Ajax.request({
+//                                    url: url,
+//                                    method: 'POST',
+//                                    jsonData: values,
+//                                    success: function (response) {
+//                                        store.load();
+//                                    }
+//                                });
+//                                win.close();
+//                            }
+//                        });
+//        
+//                        Ext.application({
+//                            name: 'TechZoo',
+//                            controllers: ['Books'],
+//                            launch: function () {
+//                                Ext.widget('bookslist', {
+//                                    width: 500,
+//                                    height: 300,
+//                                    renderTo: 'output'
+//                                });
+//                            }
+//                        }
+//                        );
+//                    });
+
+
+            function formatDate(date) {
+                
+                return Ext.Date.format(date, 'd-m-Y');
+
+            }
+        </script>
+    </body>
+
+
+</html>
+

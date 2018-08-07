@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>File Upload</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script type="text/javascript" 
+        src="http://cdn.sencha.com/ext/gpl/4.2.0/ext-all.js"></script>
+
+        <link rel="stylesheet" type="text/css" 
+              href="http://cdn.sencha.com/ext/gpl/4.2.0/resources/css/ext-all.css"></link>
+    </head>
+    <body>
+
+        <p>Click on "Browse" button (image) to select a file and click on Upload button</p>
+
+        <div id="fi-form" style="padding:25px;"></div>
+
+
+        <script>
+            Ext.onReady(function () {
+
+                Ext.create('Ext.form.Panel', {
+                    title: 'File Uploader',
+                    width: 400,
+                    bodyPadding: 10,
+                    frame: true,
+                    renderTo: 'fi-form',
+                    items: [{
+                            xtype: 'filefield',
+                            name: 'file',
+                            fieldLabel: 'File',
+                            labelWidth: 50,
+                            msgTarget: 'side',
+                            allowBlank: false,
+                            anchor: '100%',
+                            buttonText: 'Select a File...'
+                        }],
+
+                    buttons: [{
+                            text: 'Upload',
+                            handler: function () {
+                                var form = this.up('form').getForm();
+                                if (form.isValid()) {
+                                    form.submit({
+                                        url: '/APAS/uploadFile',
+                                        waitMsg: 'Uploading your file...',
+                                        method:'post',
+                                        success: function (fp, o) {
+                                            Ext.Msg.alert('Success', 'Your file has been uploaded.');
+                                        }
+                                    });
+                                }
+                            }
+                        }]
+                });
+
+            });
+
+        </script>
+    </body>
+</html>

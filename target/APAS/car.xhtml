@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>JSF Spring Integration</title>
+    </h:head>
+    <h:body>
+        <h:form>
+
+        <p:wizard>
+            <p:tab id="personal">
+                <p:panel header="Personal Details">
+                    <h:messages errorClass="error"/>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Firstname: *" />
+                        <h:inputText value="#{userWizard.user.firstname}" required="true"/>
+                        <h:outputText value="Lastname: *" />
+                        <h:inputText value="#{userWizard.user.lastname}" required="true"/>
+                        <h:outputText value="Age: " />
+                        <h:inputText value="#{userWizard.user.age}" />
+                    </h:panelGrid>
+                </p:panel>
+            </p:tab>
+
+            <p:tab id="address">
+                <p:panel header="Adress Details">
+                    <h:messages errorClass="error"/>
+                    <h:panelGrid columns="2" columnClasses="label, value">
+                        <h:outputText value="Street: " />
+                        <h:inputText value="#{userWizard.user.street}" />
+                        <h:outputText value="Postal Code: " />
+                        <h:inputText value="#{userWizard.user.postalCode}" />
+                        <h:outputText value="City: " />
+                        <h:inputText value="#{userWizard.user.city}" />
+                    </h:panelGrid>
+                </p:panel>
+            </p:tab>
+
+            <p:tab id="contact">
+                <p:panel header="Contact Information">
+                    <h:messages errorClass="error"/>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Email: *" />
+                        <h:inputText value="#{userWizard.user.email}" required="true"/>
+                        <h:outputText value="Phone: " />
+                        <h:inputText value="#{userWizard.user.phone}"/>
+                        <h:outputText value="Additional Info: " />
+                        <h:inputText value="#{userWizard.user.info}"/>
+                    </h:panelGrid>
+                </p:panel>
+            </p:tab>
+
+            <p:tab id="confirm">
+                <p:panel header="Confirmation">
+                    <h:panelGrid id="confirmation" columns="6">
+                        <h:messages />
+                        <h:outputText value="Firstname: " />
+                        <h:outputText value="#{userWizard.user.firstname}"/>
+                        <h:outputText value="Lastname: " />
+                        <h:outputText value="#{userWizard.user.lastname}"/>
+                        <h:outputText value="Age: " />
+                        <h:outputText value="#{userWizard.user.age}" />
+                        <h:outputText value="Street: " />
+                        <h:outputText value="#{userWizard.user.street}" />
+                        <h:outputText value="Postal Code: " />
+                        <h:outputText value="#{userWizard.user.postalCode}"/>
+                        <h:outputText value="City: " />
+                        <h:outputText value="#{userWizard.user.city}"/>
+                        <h:outputText value="Email: " />
+                        <h:outputText value="#{userWizard.user.email}" />
+                        <h:outputText value="Phone " />
+                        <h:outputText value="#{userWizard.user.phone}"/>
+                        <h:outputText value="Info: " />
+                        <h:outputText value="#{userWizard.user.info}"/>
+                        <h:outputText />
+                        <h:outputText />
+                    </h:panelGrid>
+                    <p:commandButton value="Submit" actionListener="#{userWizard.save}" />
+                </p:panel>
+            </p:tab>
+        </p:wizard>
+        </h:form>
+
+
+
+
+
+        <!--<p:inputSwitch value="Test" />-->
+        <!--<p:inputSwitch value="" onLabel="yes" offLabel="no"/>-->
+        <!--<p:signature style="width:400px;height:200px" value="" />-->
+        <!--          <p:menubar>
+                    <p:submenu label="Mail">
+                        <p:menuitem value="Gmail" url="http://www.google.com" />
+                        <p:menuitem value="Hotmail" url="http://www.hotmail.com" />
+                        <p:menuitem value="Yahoo Mail" url="http://mail.yahoo.com" />
+                    </p:submenu>
+                    <p:submenu label="Videos">
+                        <p:menuitem value="Youtube" url="http://www.youtube.com" />
+                        <p:menuitem value="Break" url="http://www.break.com" />
+                    </p:submenu>
+                </p:menubar>-->
+
+
+
+
+
+        <!--        <h:form>
+        
+                    <p:dataTable id="tbl" var="car" value="#{carBean.fetchCarDetails()}" widgetVar="carTable" emptyMessage="No cars found" 
+                                 paginator="true" rows="10" style="margin-bottom:20px">
+        
+                        <f:facet name="{Exporters}">
+        
+                            <h:commandLink>
+                                <p:graphicImage name="${pageContext.request.contextPath}/resources/images/pd1.jpg" />
+                                <p:dataExporter type="pdf" target="tbl" fileName="cars"/>
+                            </h:commandLink>
+        
+                        </f:facet>
+        
+        
+                        <p:column headerText="Id">
+                            <h:outputText value="#{car}"/>
+                        </p:column>
+        
+                    </p:dataTable>
+        
+                    <h3>Export Page Data Only</h3>
+        
+        
+                    <h:commandLink>
+                        <p:graphicImage name="${pageContext.request.contextPath}/resources/images/pd1.jpg" />
+        
+                        <p:dataExporter type="pdf" target="tbl" fileName="cars" pageOnly="true" />
+                    </h:commandLink>
+        
+                </h:form>-->
+
+    </h:body>
+</html>
