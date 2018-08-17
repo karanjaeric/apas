@@ -1,4 +1,3 @@
-com/apas/EmployeeApplication.class
 com/apas/controller/EmployeeController.class
 com/apas/model/AccountingPeriod.class
 com/apas/controller/LoadController.class
@@ -11,7 +10,6 @@ com/apas/controller/PasMemberController.class
 com/apas/repository/PasMemberRepository.class
 com/apas/batchprocessing/Person.class
 com/apas/repository/PersonRepository.class
-com/apas/bootstrap/BookDaoImpl.class
 com/apas/ui/CarImpl.class
 com/apas/batchprocessing/JobCompletionNotificationListener.class
 com/apas/model/FinancialYear.class
@@ -19,13 +17,13 @@ com/apas/repository/BenefitDetailsRepository.class
 com/apas/model/BenefitDetails.class
 com/apas/dao/ContributionDao.class
 com/apas/model/FileUploadBean.class
-com/apas/bootstrap/Book.class
 com/apas/Employee.class
 com/apas/enumeration/YesNo.class
 com/apas/repository/EmployeeRepository.class
+com/apas/App.class
 com/apas/repository/UserRepository.class
 com/apas/ui/MenuView.class
-com/apas/bootstrap/MyWebMvcConfigurer.class
+com/apas/controller/UploadController.class
 com/apas/ui/HelloWorld.class
 com/apas/ui/CarDao.class
 com/apas/enumeration/PeriodType.class
@@ -35,6 +33,7 @@ com/apas/batchprocessing/batch/DBWriter.class
 com/apas/ui/CarBean.class
 com/apas/dao/BenefitDetailsDao.class
 com/apas/dao/EmployeeDao.class
+com/apas/controller/FileUploadBean.class
 com/apas/controller/ClosingBalanceController.class
 com/apas/model/User.class
 com/apas/ui/UserWizard.class
@@ -42,7 +41,6 @@ com/apas/ui/ProgressBarView.class
 com/apas/model/ClosingBalance.class
 com/apas/enumeration/PeriodStatus.class
 com/apas/controller/BenefitDetailsController.class
-com/apas/bootstrap/BookDao.class
 com/apas/model/ExtJSFormResult.class
 com/apas/enumeration/InterestRateStatus.class
 com/apas/ui/CalendarView.class
@@ -50,7 +48,6 @@ com/apas/batchprocessing/BatchConfiguration.class
 com/apas/enumeration/ContributionStatus.class
 com/apas/ui/MegaMenuView.class
 com/apas/model/PasMember.class
-com/apas/bootstrap/BookController.class
 com/apas/repository/ContributionRepository.class
 com/apas/model/Contribution.class
 com/apas/controller/BeneficiaryController.class
