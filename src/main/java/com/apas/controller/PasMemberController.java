@@ -2,6 +2,10 @@ package com.apas.controller;
 
 import com.apas.dao.PasMemberDao;
 import com.apas.model.PasMember;
+import com.apas.storage.StorageService;
+import com.apas.util.JsonUtil;
+import com.apas.util.ResponseObject;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,11 +13,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/member")
 public class PasMemberController {
+
+    private final StorageService storageService;
+
+    @Autowired
+    public PasMemberController(StorageService storageService) {
+        this.storageService = storageService;
+    }
 
     @Autowired
     PasMemberDao pasMemberDao;
@@ -42,8 +56,34 @@ public class PasMemberController {
         JsonResponse jsonResponse = new JsonResponse();
         jsonResponse.setData(pasMemberDao.findAll());
         jsonResponse.setTotalCount(pasMemberDao.findAll().size());
-        
+
         return jsonResponse;
+    }
+
+    @PostMapping("/test")
+    public ResponseObject handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("desc") String desc,
+            RedirectAttributes redirectAttributes) throws JsonProcessingException {
+        System.out.println("Description of the file is " + desc);
+        System.out.println("uploaded file is " + file.getOriginalFilename());
+        storageService.store(file);
+        ResponseObject responseObject = new ResponseObject();
+        responseObject.setMessage("File saved successfully");
+        responseObject.setSuccess(true);
+
+        return responseObject;
+        
+
+    }
+    
+       @PostMapping("/test1")
+    public ResponseObject test(
+            RedirectAttributes redirectAttributes) throws JsonProcessingException {
+      
+        ResponseObject responseObject = new ResponseObject();
+        responseObject.setMessage("File saved successfully");
+
+        return responseObject;
+
     }
 
 }

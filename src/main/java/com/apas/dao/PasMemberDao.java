@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class PasMemberDao {
 
     @Autowired
-    PasMemberRepository pasMemberRepository;
+   private  PasMemberRepository pasMemberRepository;
 
     public PasMember save(PasMember member) {
         return pasMemberRepository.save(member);
